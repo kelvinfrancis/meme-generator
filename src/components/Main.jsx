@@ -11,6 +11,7 @@ export default function Main() {
           Bottom Text
           <input type="text" placeholder="Walk into Mordor" name="bottomText" />
         </label>
+        
         <button>Get a new meme image 🖼</button>
       </div>
       <div className="meme">
