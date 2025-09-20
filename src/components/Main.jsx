@@ -7,12 +7,12 @@ export default function Main() {
     imageUrl: "http://i.imgflip.com/1bij.jpg",
   });
 
-  const [allMemes, setAllMemes] = useState([])
+  const [allMemes, setAllMemes] = useState([]);
 
   useEffect(() => {
     fetch("https://api.imgflip.com/get_memes")
       .then((response) => response.json())
-      .then(data => setAllMemes(data.data.memes))
+      .then((data) => setAllMemes(data.data.memes));
   }, []);
 
   function handleChange(event) {
@@ -20,6 +20,16 @@ export default function Main() {
     setMeme((prevMeme) => ({
       ...prevMeme,
       [name]: value,
+    }));
+  }
+
+  // GET NEW MEME IMAGE
+  function getMemeImage() {
+    const randomIndex = Math.floor(Math.random() * allMemes.length);
+    const newMemeUrl = allMemes[randomIndex].url;
+    setMeme((prevMeme) => ({
+      ...prevMeme,
+      imageUrl: newMemeUrl,
     }));
   }
 
@@ -48,7 +58,7 @@ export default function Main() {
           />
         </label>
 
-        <button>Get a new meme image 🖼️</button>
+        <button onClick={getMemeImage}>Get a new meme image 🖼️</button>
       </div>
       <div className="meme">
         <img src={meme.imageUrl} />

@@ -1,16 +1,19 @@
-import React from 'react'
+import React from "react";
 
 export default function WindowTracker() {
+  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
 
-    const [windowWidth, setWindowWidth] = React.useState(window.innerWidth)
+  React.useEffect(() => {
+    function watchWindowWidth() {
+      console.log("Resized!");
+      setWindowWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", watchWindowWidth);
+    return function () {
+      console.log("Cleaning up...");
+      window.removeEventListener("resize", watchWindowWidth);
+    };
+  }, []);
 
-    React.useEffect(() => {
-        window.addEventListener("resize", () => {
-            setWindowWidth(window.innerWidth)
-        })
-    }, [])
-
-  return (
-    <h1>Window width: {windowWidth}</h1>
-  )
+  return <h1>Window width: {windowWidth}</h1>;
 }
